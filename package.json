@@ -1,0 +1,23 @@
+{
+  "name": "home-work-12",
+  "version": "1.0.0",
+  "description": "first-server",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "eslint": "eslint ./routers",
+    "eslintFix": "eslint ./routers --fix"
+  },
+  "author": "Anton Voitenko",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
