@@ -6,12 +6,12 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id/', (req, res) => {
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i += 1) {
     if (data[i]._id === req.params.id) {
       return res.send(data[i]);
     }
   }
-  res.send({ message: 'Нет пользователя с таким id' });
+  return res.send({ message: 'Нет пользователя с таким id' });
 });
 
 module.exports = router;
