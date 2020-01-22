@@ -11,7 +11,7 @@ router.get('/:id/', (req, res) => {
       return res.send(data[i]);
     }
   }
-  return res.send({ message: 'Нет пользователя с таким id' });
+  return res.status(404).send({ message: 'Нет пользователя с таким id' });
 });
 
 module.exports = router;
