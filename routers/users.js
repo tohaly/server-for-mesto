@@ -1,17 +1,27 @@
 const router = require('express').Router();
-const data = require('../data/users.json');
+const fsPromises = require('fs').promises;
+const findUser = require('./finduser.js');
+
+const users = fsPromises.readFile('./data/users.json', { encoding: 'utf8' });
 
 router.get('/', (req, res) => {
-  res.send(data);
+  users
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(`Проблема с получением данных о пользователях, ошибка: ${err}`);
+    });
 });
 
-router.get('/:id/', (req, res) => {
-  for (let i = 0; i < data.length; i += 1) {
-    if (data[i]._id === req.params.id) {
-      return res.send(data[i]);
-    }
-  }
-  return res.status(404).send({ message: 'Нет пользователя с таким id' });
+router.get('/:id', (req, res) => {
+  users
+    .then(data => {
+      findUser(JSON.parse(data), res, req);
+    })
+    .catch(err => {
+      console.log(`Проблема с получением данных о пользователе, ошибка: ${err}`);
+    });
 });
 
 module.exports = router;
