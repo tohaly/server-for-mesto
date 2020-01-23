@@ -1,17 +1,12 @@
 const router = require('express').Router();
-const data = require('../data/users.json');
+const { getUsersList, getUserById } = require('./users-logics');
 
 router.get('/', (req, res) => {
-  res.send(data);
+  getUsersList(res);
 });
 
-router.get('/:id/', (req, res) => {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i]._id === req.params.id) {
-      return res.send(data[i]);
-    }
-  }
-  res.send({ message: 'Нет пользователя с таким id' });
+router.get('/:id', (req, res) => {
+  getUserById(req, res);
 });
 
 module.exports = router;
