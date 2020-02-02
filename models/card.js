@@ -10,7 +10,15 @@ const cardSchema = new mongoose.Schema(
     },
     link: {
       type: String,
-      required: true
+      required: true,
+      validate: {
+        validator(valid) {
+          return /^https?:\/\/(www\.)?(([a-z\d][a-z\d-]+(\.[a-z]{2,}){1,127})|((\d{1,3}\.){3}\d{1,3}))(:\d{2,5})?((\/[a-z\d\-]{2,}){1,})?\/?#?$/.test(
+            valid
+          );
+        },
+        message: props => `Ошибка. ${props.value} является не правильным форматом для url`
+      }
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
@@ -34,3 +42,5 @@ const cardSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('card', cardSchema);
+
+// ^https?:\/\/(www\.)?(([a-z\d][a-z\d-]+(\.[a-z]{2,}){1,127})|((\d{1,3}\.){3}\d{1,3}))(:\d{2,5})?((\/[a-z\d\-]{2,}){1,})?\/?#?$
