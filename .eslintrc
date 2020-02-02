@@ -4,5 +4,6 @@
   "rules": {
     "prettier/prettier": ["error"],
     "no-underscore-dangle": 0
-  }
+  },
+  "parser": "babel-eslint"
 }

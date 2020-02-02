@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema(
       required: true,
       validate: {
         validator(valid) {
-          return /^https?:\/\/(www\.)?(([a-z\d][a-z\d-]+(\.[a-z]{2,}){1,127})|((\d{1,3}\.){3}\d{1,3}))(:\d{2,5})?((\/[a-z\d\-]{2,}){1,})?\/?#?$/.test(
+          return /^https?:\/\/(www\.)?(([a-z\d][a-z\d-]+(\.[a-z]{2,}){1,127})|((\d{1,3}\.){3}\d{1,3}))(:\d{2,5})?((\/[a-z\d-]{2,}){1,})?\/?#?$/.test(
             valid
           );
         },

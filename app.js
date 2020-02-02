@@ -29,7 +29,6 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 app.use('/cards', cards);
 app.use('/users', users);
-app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
