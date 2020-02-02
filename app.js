@@ -11,6 +11,7 @@ const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use((req, res, next) => {
+  // Времнное решение
   req.user = {
     _id: '5e343e8aa70e5845b83c2c12'
   };
