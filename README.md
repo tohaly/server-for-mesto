@@ -8,7 +8,7 @@ Version: v.0.0.1
 
 ## Используемые технологии:
 
-JS, WebPack, GIT, Eslint, Node.js, epress.js.
+JS, WebPack, GIT, Eslint, Node.js, express.js.
 
 ## Локальный запуск
 
