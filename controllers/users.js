@@ -3,18 +3,18 @@ const User = require('../models/user');
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(500).send({ message: `Произошла ошибка: ${err}` }));
+    .catch(() => res.status(500).send({ message: `Произошла ошибка сервера` }));
 };
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(500).send({ message: `Произошла ошибка: ${err}` }));
+    .catch(() => res.status(500).send({ message: 'Произошла ошибка сервера' }));
 };
 module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(500).send({ message: `Произошла ошибка: ${err}` }));
+    .catch(err => res.status(400).send({ message: `Ошибка валидации ${err}` }));
 };
 module.exports.updateProfile = (req, res) => {
   const { name, about } = req.body;
@@ -28,7 +28,7 @@ module.exports.updateProfile = (req, res) => {
     }
   )
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(500).send({ message: `Произошла ошибка: ${err}` }));
+    .catch(err => res.status(400).send({ message: `Ошибка валидации: ${err}` }));
 };
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
@@ -42,5 +42,5 @@ module.exports.updateAvatar = (req, res) => {
     }
   )
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(500).send({ message: `Произошла ошибка: ${err}` }));
+    .catch(err => res.status(400).send({ message: `Ошибка валидации: ${err}` }));
 };
