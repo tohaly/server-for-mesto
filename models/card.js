@@ -1,29 +1,32 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
+
+const requiredField = [true, 'Обязательное поле для заполнения'];
+const minChar = [2, 'Минимальное количество символов 2'];
+const maxChar = [30, 'Максимальное количество символов 30'];
 
 const cardSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
-      minlength: 2,
-      maxlength: 30
+      required: requiredField,
+      minlength: minChar,
+      maxlength: maxChar
     },
     link: {
       type: String,
       required: true,
       validate: {
         validator(valid) {
-          return /^https?:\/\/(www\.)?(([a-z\d][a-z\d-]+(\.[a-z]{2,}){1,127})|((\d{1,3}\.){3}\d{1,3}))(:\d{2,5})?((\/[a-z\d-]{2,}){1,})?\/?#?$/.test(
-            valid
-          );
+          return validator.isURL(valid);
         },
-        message: props => `Ошибка. ${props.value} является не правильным форматом для url`
+        message: props => `${props.value} — не правильным форматом для url-адресса`
       }
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
-      required: true
+      required: requiredField
     },
     likes: [
       {
