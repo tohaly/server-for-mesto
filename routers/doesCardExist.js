@@ -9,5 +9,5 @@ module.exports.doesCardExist = (req, res, next) => {
       }
       next();
     })
-    .catch(() => res.status(400).send({ message: 'Ошибка валидации id' }));
+    .catch(() => res.status(400).send({ message: `Ошибка валидации id` }));
 };
