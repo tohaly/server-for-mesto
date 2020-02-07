@@ -1,20 +1,21 @@
 const User = require('../models/user');
+const { indentifyError } = require('../libs/helpers');
 
 module.exports.getUsers = (req, res) => {
   User.find({})
     .then(user => res.send({ data: user }))
-    .catch(() => res.status(500).send({ message: `Произошла ошибка сервера` }));
+    .catch(err => indentifyError(res, err));
 };
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .then(user => res.send({ data: user }))
-    .catch(() => res.status(500).send({ message: 'Произошла ошибка сервера' }));
+    .catch(err => indentifyError(res, err));
 };
 module.exports.createUser = (req, res) => {
   const { name, about, avatar } = req.body;
   User.create({ name, about, avatar })
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(400).send({ message: `Ошибка валидации ${err}` }));
+    .catch(err => indentifyError(res, err));
 };
 module.exports.updateProfile = (req, res) => {
   const { name, about } = req.body;
@@ -28,7 +29,7 @@ module.exports.updateProfile = (req, res) => {
     }
   )
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(400).send({ message: `Ошибка валидации: ${err}` }));
+    .catch(err => indentifyError(res, err));
 };
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
@@ -42,5 +43,5 @@ module.exports.updateAvatar = (req, res) => {
     }
   )
     .then(user => res.send({ data: user }))
-    .catch(err => res.status(400).send({ message: `Ошибка валидации: ${err}` }));
+    .catch(err => indentifyError(res, err));
 };
