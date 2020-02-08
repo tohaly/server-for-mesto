@@ -1,13 +1,18 @@
 const Card = require('../models/card');
+const { resMessage } = require('../libs/resMessage');
+const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 
 module.exports.doesCardExist = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
+      console.log(card);
       if (!card) {
-        res.status(404).send({ message: 'Карточка не найдена' });
+        sendOnlyMessage(res, resMessage.cardNotFound);
         return;
       }
       next();
     })
-    .catch(() => res.status(400).send({ message: `Ошибка валидации id` }));
+    .catch(err => {
+      indentifyError(res, err);
+    });
 };

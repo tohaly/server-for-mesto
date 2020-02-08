@@ -1,12 +1,38 @@
-const { errMessages } = require('./errMessages');
+const { resMessage } = require('./resMessage');
 
-module.exports.sendErrMessage = (res, err, data) => {
+module.exports.getResponse = (res, data) => {
+  return res.send({ data });
+};
+
+module.exports.sendCustomErrMessage = (res, err, data) => {
   return res.status(data.status).send({ message: `${data.message} ${err}` });
+};
+
+module.exports.sendOnlyMessage = (res, data) => {
+  return res.status(data.status).send({ message: data.message });
 };
 
 module.exports.indentifyError = (res, err) => {
   if (err.name === 'ValidationError') {
-    return this.sendErrMessage(res, err, errMessages.validErr);
+    return this.sendCustomErrMessage(res, err, resMessage.validErr);
   }
-  return this.sendErrMessage(res, err, errMessages.internalServError);
+  if (err.name === 'CastError') {
+    return this.sendOnlyMessage(res, resMessage.badId);
+  }
+  return this.sendCustomErrMessage(res, err, resMessage.internalServError);
+};
+
+module.exports.like = (req, res, module) => {
+  if (res.req.method === 'PUT') {
+    return module.findByIdAndUpdate(
+      req.params.cardId,
+      { $addToSet: { likes: req.user._id } },
+      { new: true }
+    );
+  }
+  return module.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true }
+  );
 };

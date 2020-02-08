@@ -1,13 +1,18 @@
 const User = require('../models/user');
+const { resMessage } = require('../libs/resMessage');
+const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 
 module.exports.doesUserExist = (req, res, next) => {
   User.findById(req.params.userId)
     .then(user => {
       if (!user) {
-        res.status(404).send({ message: 'Нет пользователя с таким id' });
+        sendOnlyMessage(res, resMessage.userNotFound);
         return;
       }
+
       next();
     })
-    .catch(() => res.status(400).send({ message: 'Ошибка валидации id' }));
+    .catch(err => {
+      indentifyError(res, err);
+    });
 };
