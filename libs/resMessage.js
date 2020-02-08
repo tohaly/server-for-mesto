@@ -1,6 +1,6 @@
 module.exports.resMessage = {
   validErr: {
-    status: 404,
+    status: 400,
     message: `Ошибка валидации:`
   },
   internalServError: {
@@ -22,5 +22,9 @@ module.exports.resMessage = {
   successDel: {
     status: 200,
     message: 'Пост успешно удален!'
+  },
+  notFoundRes: {
+    status: 404,
+    message: 'Запрашиваемый ресурс не найден'
   }
 };
