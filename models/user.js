@@ -1,32 +1,29 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-
-const requiredField = [true, 'Обязательное поле для заполнения'];
-const minChar = [2, 'Минимальное количество символов 2'];
-const maxChar = [30, 'Максимальное количество символов 30'];
+const { validOPtion } = require('../libs/validOPtion');
 
 const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: requiredField,
-      minlength: minChar,
-      maxlength: maxChar
+      required: validOPtion.requiredField,
+      minlength: validOPtion.minChar,
+      maxlength: validOPtion.maxChar
     },
     about: {
       type: String,
-      required: requiredField,
-      minlength: minChar,
-      maxlength: maxChar
+      required: validOPtion.requiredField,
+      minlength: validOPtion.minChar,
+      maxlength: validOPtion.maxChar
     },
     avatar: {
       type: String,
-      required: requiredField,
+      required: validOPtion.requiredField,
       validate: {
         validator(valid) {
           return validator.isURL(valid);
         },
-        message: props => `${props.value} — не правильным форматом для url-адресса`
+        message: props => `${props.value} ${validOPtion.urlMessage}`
       }
     }
   },

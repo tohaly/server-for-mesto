@@ -19,7 +19,7 @@ module.exports.deleteCardById = (req, res) => {
     .then(() => res.send(sendOnlyMessage(res, resMessage.successDel)))
     .catch(err => indentifyError(res, err));
 };
-module.exports.toLike = (req, res) => {
+module.exports.likeToggle = (req, res) => {
   like(req, res, Card)
     .then(card => getResponse(res, card))
     .catch(err => indentifyError(res, err));

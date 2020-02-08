@@ -17,10 +17,10 @@ module.exports.resMessage = {
   },
   cardNotFound: {
     status: 404,
-    message: 'Пост с таким id не найдена'
+    message: 'Пост с таким id не найден'
   },
   successDel: {
     status: 200,
-    message: 'Пост успешно удалена!'
+    message: 'Пост успешно удален!'
   }
 };

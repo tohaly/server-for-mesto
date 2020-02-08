@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const { getResponse, indentifyError } = require('../libs/helpers');
 
-const UpdateOptions = {
+const updateOptions = {
   new: true,
   runValidators: true,
   upsert: true
@@ -25,13 +25,13 @@ module.exports.createUser = (req, res) => {
 };
 module.exports.updateProfile = (req, res) => {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, UpdateOptions)
+  User.findByIdAndUpdate(req.user._id, { name, about }, updateOptions)
     .then(user => getResponse(res, user))
     .catch(err => indentifyError(res, err));
 };
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(req.user._id, { avatar }, UpdateOptions)
+  User.findByIdAndUpdate(req.user._id, { avatar }, updateOptions)
     .then(user => getResponse(res, user))
     .catch(err => indentifyError(res, err));
 };
