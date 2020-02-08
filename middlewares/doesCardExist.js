@@ -5,7 +5,6 @@ const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 module.exports.doesCardExist = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
-      console.log(card);
       if (!card) {
         sendOnlyMessage(res, resMessage.cardNotFound);
         return;

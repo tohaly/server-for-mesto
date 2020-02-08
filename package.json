@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "eslint": "eslint ./*",
-    "eslintFix": "eslint ./* --fix"
+    "eslint": "eslint --ext=.js ./ --ignore-path .gitignore",
+    "eslintFix": "eslint --ext=.js ./ --ignore-path .gitignore --fix"
   },
   "author": "Anton Voitenko",
   "license": "ISC",
