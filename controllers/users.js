@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { getResponse, indentifyError } = require('../libs/helpers');
 
@@ -18,8 +19,11 @@ module.exports.getUserById = (req, res) => {
     .catch(err => indentifyError(res, err));
 };
 module.exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
+  const { name, about, avatar, email } = req.body;
+
+  bcrypt
+    .hash(req.body.password, 10)
+    .then(hash => User.create({ name, about, avatar, email, password: hash }))
     .then(user => getResponse(res, user))
     .catch(err => indentifyError(res, err));
 };
