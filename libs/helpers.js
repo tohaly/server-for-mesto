@@ -19,7 +19,7 @@ module.exports.indentifyError = (res, err) => {
   if (err.name === 'CastError') {
     return this.sendOnlyMessage(res, resMessage.badId);
   }
-  return this.sendCustomErrMessage(res, err, resMessage.internalServError);
+  return this.sendCustomErrMessage(res, err, resMessage.internalServerError);
 };
 
 module.exports.like = (req, res, module) => {

@@ -3,7 +3,7 @@ module.exports.resMessage = {
     status: 400,
     message: `Ошибка валидации:`
   },
-  internalServError: {
+  internalServerError: {
     status: 500,
     message: `Произошла ошибка сервера:`
   },
