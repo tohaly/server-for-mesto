@@ -11,6 +11,10 @@ module.exports.resMessage = {
     status: 400,
     message: 'Ошибка валидации id'
   },
+  authenticationFailed: {
+    status: 401,
+    message: 'Ошибка аутентификации'
+  },
   userNotFound: {
     status: 404,
     message: 'Нет пользователя с таким id'
