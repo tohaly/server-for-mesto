@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
-const resMessage = require('../libs/resMessage');
+const resMessages = require('../libs/resMessages');
 const { sendOnlyMessage } = require('../libs/helpers');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.body;
 
   if (!authorization || authorization.startsWith('Bearer ')) {
-    return sendOnlyMessage(res, resMessage.authorizationErr);
+    return sendOnlyMessage(res, resMessages.authorizationErr);
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, 'SECRET-KEY');
   } catch (err) {
-    return sendOnlyMessage(res, resMessage.authorizationErr);
+    return sendOnlyMessage(res, resMessages.authorizationErr);
   }
 
   req.user = payload;

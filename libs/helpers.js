@@ -1,4 +1,4 @@
-const { resMessage } = require('./resMessage');
+const { resMessages } = require('./resMessages');
 
 module.exports.getResponse = (res, data) => {
   return res.send({ data });
@@ -14,12 +14,12 @@ module.exports.sendOnlyMessage = (res, data) => {
 
 module.exports.indentifyError = (res, err) => {
   if (err.name === 'ValidationError') {
-    return this.sendCustomErrMessage(res, err, resMessage.validErr);
+    return this.sendCustomErrMessage(res, err, resMessages.validErr);
   }
   if (err.name === 'CastError') {
-    return this.sendOnlyMessage(res, resMessage.badId);
+    return this.sendOnlyMessage(res, resMessages.badId);
   }
-  return this.sendCustomErrMessage(res, err, resMessage.internalServerError);
+  return this.sendCustomErrMessage(res, err, resMessages.internalServerError);
 };
 
 module.exports.like = (req, res, module) => {

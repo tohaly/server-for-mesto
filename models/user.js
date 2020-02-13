@@ -1,47 +1,47 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { validOption } = require('../libs/validOption');
+const { validOptions } = require('../libs/validOptions');
 
 const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: validOption.requiredField,
-      minlength: validOption.minChar,
-      maxlength: validOption.maxChar
+      required: validOptions.requiredField,
+      minlength: validOptions.minChar,
+      maxlength: validOptions.maxChar
     },
     about: {
       type: String,
-      required: validOption.requiredField,
-      minlength: validOption.minChar,
-      maxlength: validOption.maxChar
+      required: validOptions.requiredField,
+      minlength: validOptions.minChar,
+      maxlength: validOptions.maxChar
     },
     avatar: {
       type: String,
-      required: validOption.requiredField,
+      required: validOptions.requiredField,
       validate: {
         validator(valid) {
           return validator.isURL(valid);
         },
-        message: props => `${props.value} ${validOption.urlMessage}`
+        message: props => `${props.value} ${validOptions.urlMessage}`
       }
     },
     email: {
       type: String,
-      required: validOption.requiredField,
+      required: validOptions.requiredField,
       unique: true,
       validate: {
         validator(valid) {
           return validator.isEmail(valid);
         },
-        message: props => `${props.value} ${validOption.emailMessage}`
+        message: props => `${props.value} ${validOptions.emailMessage}`
       }
     },
     password: {
       type: String,
-      required: validOption.requiredField,
-      minlength: validOption.minPasswordLength
+      required: validOptions.requiredField,
+      minlength: validOptions.minPasswordLength
     }
   },
   {

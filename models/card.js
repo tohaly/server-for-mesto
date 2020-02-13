@@ -1,29 +1,29 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const { validOption } = require('../libs/validOption');
+const { validOptions } = require('../libs/validOptions');
 
 const cardSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: validOption.requiredField,
-      minlength: validOption.minChar,
-      maxlength: validOption.maxChar
+      required: validOptions.requiredField,
+      minlength: validOptions.minChar,
+      maxlength: validOptions.maxChar
     },
     link: {
       type: String,
-      required: validOption.requiredField,
+      required: validOptions.requiredField,
       validate: {
         validator(valid) {
           return validator.isURL(valid);
         },
-        message: props => `${props.value} ${validOption.urlMessage}`
+        message: props => `${props.value} ${validOptions.urlMessage}`
       }
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
-      required: validOption.requiredField
+      required: validOptions.requiredField
     },
     likes: [
       {

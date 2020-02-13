@@ -1,4 +1,4 @@
-module.exports.resMessage = {
+module.exports.resMessages = {
   successDel: {
     status: 200,
     message: 'Пост успешно удален!'
