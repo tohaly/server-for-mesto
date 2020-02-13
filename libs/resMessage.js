@@ -15,6 +15,10 @@ module.exports.resMessage = {
     status: 401,
     message: 'Ошибка аутентификации'
   },
+  authorizationErr: {
+    status: 401,
+    message: 'Необходима авторизация'
+  },
   forbidden: {
     status: 403,
     message: 'Нет прав для совершения данного действия'
