@@ -19,6 +19,9 @@ module.exports.indentifyError = (res, err) => {
   if (err.name === 'CastError') {
     return this.sendOnlyMessage(res, resMessages.badId);
   }
+  if (err.message.startsWith('E11000')) {
+    return this.sendOnlyMessage(res, resMessages.emailMatches);
+  }
   return this.sendCustomErrMessage(res, err, resMessages.internalServerError);
 };
 

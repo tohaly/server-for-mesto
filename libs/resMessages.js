@@ -11,16 +11,20 @@ module.exports.resMessages = {
     status: 400,
     message: 'Ошибка валидации id'
   },
+  emailMatches: {
+    status: 400,
+    message: 'Такой Email уже существует'
+  },
   authenticationFailed: {
     status: 401,
     message: 'Ошибка аутентификации'
   },
-  authorizationErr: {
+  authorizationRequired: {
     status: 401,
     message: 'Необходима авторизация'
   },
   forbidden: {
-    status: 403,
+    status: 401,
     message: 'Нет прав для совершения данного действия'
   },
   userNotFound: {
