@@ -15,6 +15,10 @@ module.exports.resMessage = {
     status: 401,
     message: 'Ошибка аутентификации'
   },
+  forbidden: {
+    status: 403,
+    message: 'Нет прав для совершения данного действия'
+  },
   userNotFound: {
     status: 404,
     message: 'Нет пользователя с таким id'
