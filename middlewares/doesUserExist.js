@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const { resMessages } = require('../libs/resMessages');
+const resMessages = require('../libs/resMessages');
 const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 
 module.exports.doesUserExist = (req, res, next) => {

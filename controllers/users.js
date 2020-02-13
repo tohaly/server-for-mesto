@@ -1,8 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const { getResponse, indentifyError, sendOnlyMessage } = require('../libs/helpers');
-const { resMessages } = require('../libs/resMessages');
+const { getResponse, indentifyError } = require('../libs/helpers');
 
 const updateOptions = {
   new: true,
@@ -48,7 +47,5 @@ module.exports.login = (req, res) => {
       const token = jwt.sign({ _id: user._id }, 'SECRET-KEY', { expiresIn: '7d' });
       res.send({ token });
     })
-    .catch(() => {
-      sendOnlyMessage(resMessages.authenticationFailed);
-    });
+    .catch(err => indentifyError(res, err));
 };

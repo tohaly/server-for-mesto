@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 const { getResponse, sendOnlyMessage, indentifyError, like } = require('../libs/helpers');
-const { resMessages } = require('../libs/resMessages');
+const resMessages = require('../libs/resMessages');
 
 module.exports.getCards = (req, res) => {
   Card.find({})

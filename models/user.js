@@ -52,15 +52,18 @@ const UserSchema = new mongoose.Schema(
 
 // eslint-disable-next-line func-names
 UserSchema.statics.findUserByCredentials = function(email, password) {
+  const customError = new Error('Matched error');
+  customError.name = 'custonMismatchErr';
+
   return this.findOne({ email })
     .select('+password')
     .then(user => {
       if (!user) {
-        return Promise.reject(new Error('Неправильные почта или пароль'));
+        return Promise.reject(customError);
       }
       return bcrypt.compare(password, user.password).then(matched => {
         if (!matched) {
-          return Promise.reject(new Error('Неправильные почта или пароль'));
+          return Promise.reject(customError);
         }
         return user;
       });

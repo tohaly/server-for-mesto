@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-const { resMessages } = require('../libs/resMessages');
+const resMessages = require('../libs/resMessages');
 const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 
 module.exports.doesCardExist = (req, res, next) => {

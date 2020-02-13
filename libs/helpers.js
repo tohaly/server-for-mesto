@@ -1,4 +1,4 @@
-const { resMessages } = require('./resMessages');
+const resMessages = require('./resMessages');
 
 module.exports.getResponse = (res, data) => {
   return res.send({ data });
@@ -18,6 +18,9 @@ module.exports.indentifyError = (res, err) => {
   }
   if (err.name === 'CastError') {
     return this.sendOnlyMessage(res, resMessages.badId);
+  }
+  if (err.name === 'custonMismatchErr') {
+    return this.sendOnlyMessage(res, resMessages.authenticationFailed);
   }
   if (err.message.startsWith('E11000')) {
     return this.sendOnlyMessage(res, resMessages.emailMatches);

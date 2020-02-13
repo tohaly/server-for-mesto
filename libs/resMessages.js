@@ -1,4 +1,4 @@
-module.exports.resMessages = {
+module.exports = {
   successDel: {
     status: 200,
     message: 'Пост успешно удален!'
@@ -17,7 +17,7 @@ module.exports.resMessages = {
   },
   authenticationFailed: {
     status: 401,
-    message: 'Ошибка аутентификации'
+    message: 'Неправильные почта или пароль'
   },
   authorizationRequired: {
     status: 401,
