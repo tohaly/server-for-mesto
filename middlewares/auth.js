@@ -5,8 +5,9 @@ const { sendOnlyMessage } = require('../libs/helpers');
 module.exports = (req, res, next) => {
   const { authorization } = req.body;
 
-  if (!authorization || authorization.startsWith('Bearer ')) {
-    return sendOnlyMessage(res, resMessages.authorizationRequired);
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    sendOnlyMessage(res, resMessages.authorizationRequired);
+    return;
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -16,7 +17,8 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, 'SECRET-KEY');
   } catch (err) {
-    return sendOnlyMessage(res, resMessages.authorizationRequired);
+    sendOnlyMessage(res, resMessages.authorizationRequired);
+    return;
   }
 
   req.user = payload;
