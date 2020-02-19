@@ -1,13 +1,7 @@
-const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { getResponse, indentifyError } = require('../libs/helpers');
-
-const updateOptions = {
-  new: true,
-  runValidators: true,
-  upsert: true
-};
+const updateOptions = require('../libs/optionsForModeUpdatel');
 
 module.exports.getUsers = (req, res) => {
   User.find({})
@@ -20,12 +14,12 @@ module.exports.getUserById = (req, res) => {
     .catch(err => indentifyError(res, err));
 };
 module.exports.createUser = (req, res) => {
-  const { name, about, avatar, email } = req.body;
-
-  bcrypt
-    .hash(req.body.password, 10)
-    .then(hash => User.create({ name, about, avatar, email, password: hash }))
-    .then(user => getResponse(res, user))
+  const { name, about, avatar, email, password } = req.body;
+  User.updatePassword(name, res);
+  User.create({ name, about, avatar, email, password })
+    .then(user => {
+      return User.updatePassword(user, res);
+    })
     .catch(err => indentifyError(res, err));
 };
 module.exports.updateProfile = (req, res) => {

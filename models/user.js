@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const { validOptions } = require('../libs/validOptions');
+const { getResponse } = require('../libs/helpers');
+const updateOptions = require('../libs/optionsForModeUpdatel');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -68,6 +70,18 @@ UserSchema.statics.findUserByCredentials = function(email, password) {
         return user;
       });
     });
+};
+
+// eslint-disable-next-line func-names
+UserSchema.statics.updatePassword = function(user = 'asds', res) {
+  bcrypt.hash(user.password, 10, (err, hash) => {
+    if (err) {
+      return Promise.reject(err);
+    }
+    return this.findByIdAndUpdate(user._id, { password: hash }, updateOptions).then(updatingUser =>
+      getResponse(res, updatingUser)
+    );
+  });
 };
 
 module.exports = mongoose.model('user', UserSchema);
