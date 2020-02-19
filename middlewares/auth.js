@@ -3,7 +3,8 @@ const resMessages = require('../libs/resMessages');
 const { sendOnlyMessage } = require('../libs/helpers');
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.body;
+  console.log(req.header);
+  const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     sendOnlyMessage(res, resMessages.authorizationRequired);
