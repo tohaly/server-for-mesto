@@ -13,7 +13,7 @@ module.exports.sendOnlyMessage = (res, data) => {
 };
 
 module.exports.indentifyError = (res, err) => {
-  switch (err) {
+  switch (err.name) {
     case 'ValidationError':
       this.sendCustomErrMessage(res, err, resMessages.validErr);
       break;
@@ -23,7 +23,7 @@ module.exports.indentifyError = (res, err) => {
     case 'custonMismatchErr':
       this.sendOnlyMessage(res, resMessages.authenticationFailed);
       break;
-    case 'E11000':
+    case 'MongoError':
       this.sendOnlyMessage(res, resMessages.emailMatches);
       break;
     default:
