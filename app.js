@@ -12,11 +12,18 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
+mongoose
+  .connect('mongodb://localhost:27017/mestodb', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  })
+  .then(() => {
+    console.log('База данных успешно подключена');
+  })
+  .catch(err => {
+    console.log(`Ошибка баззы данных: ${err}`);
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
