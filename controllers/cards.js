@@ -16,7 +16,7 @@ module.exports.createCard = (req, res) => {
 };
 module.exports.deleteCardById = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then(() => res.send(sendOnlyMessage(res, resMessages.successDel)))
+    .then(() => sendOnlyMessage(res, resMessages.successDel))
     .catch(err => indentifyError(res, err));
 };
 module.exports.likeToggle = (req, res) => {
