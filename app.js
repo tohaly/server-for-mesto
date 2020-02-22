@@ -19,10 +19,12 @@ mongoose
     useFindAndModify: false
   })
   .then(() => {
-    console.log('База данных успешно подключена');
+    console.log(`\x1b[32m%s\x1b[0m`, `База данных успешно подключена`);
+    console.log(`\x1b[33m%s\x1b[0m`, `------------`);
   })
   .catch(err => {
-    console.log(`Ошибка баззы данных: ${err}`);
+    console.log('\x1b[31m%s\x1b[0m', `Ошибка баззы данных: ${err}`);
+    console.log(`\x1b[31m%s\x1b[0m`, `------------`);
   });
 
 app.use(bodyParser.json());
@@ -38,5 +40,6 @@ app.use('/users', users);
 app.use('/', notFoundRes);
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен 👌, порт: ${PORT}.`);
+  console.log('\x1b[32m%s\x1b[0m', `Сервер запущен 👌, порт: ${PORT}.`);
+  console.log(`\x1b[33m%s\x1b[0m`, `------------`);
 });
