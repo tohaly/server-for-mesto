@@ -13,19 +13,23 @@ module.exports.sendOnlyMessage = (res, data) => {
 };
 
 module.exports.indentifyError = (res, err) => {
-  if (err.name === 'ValidationError') {
-    return this.sendCustomErrMessage(res, err, resMessages.validErr);
+  switch (err) {
+    case 'ValidationError':
+      this.sendCustomErrMessage(res, err, resMessages.validErr);
+      break;
+    case 'CastError':
+      this.sendOnlyMessage(res, resMessages.badId);
+      break;
+    case 'custonMismatchErr':
+      this.sendOnlyMessage(res, resMessages.authenticationFailed);
+      break;
+    case 'E11000':
+      this.sendOnlyMessage(res, resMessages.emailMatches);
+      break;
+    default:
+      this.sendCustomErrMessage(res, err, resMessages.internalServerError);
+      break;
   }
-  if (err.name === 'CastError') {
-    return this.sendOnlyMessage(res, resMessages.badId);
-  }
-  if (err.name === 'custonMismatchErr') {
-    return this.sendOnlyMessage(res, resMessages.authenticationFailed);
-  }
-  if (err.message.startsWith('E11000')) {
-    return this.sendOnlyMessage(res, resMessages.emailMatches);
-  }
-  return this.sendCustomErrMessage(res, err, resMessages.internalServerError);
 };
 
 module.exports.like = (req, res, module) => {
