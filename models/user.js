@@ -73,7 +73,7 @@ UserSchema.statics.findUserByCredentials = function(email, password) {
 };
 
 // eslint-disable-next-line func-names
-UserSchema.statics.updatePassword = function(user = 'asds', res) {
+UserSchema.statics.updatePassword = function(user, res) {
   bcrypt.hash(user.password, 10, (err, hash) => {
     if (err) {
       return Promise.reject(err);

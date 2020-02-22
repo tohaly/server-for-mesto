@@ -15,10 +15,9 @@ module.exports.getUserById = (req, res) => {
 };
 module.exports.createUser = (req, res) => {
   const { name, about, avatar, email, password } = req.body;
-  User.updatePassword(name, res);
   User.create({ name, about, avatar, email, password })
     .then(user => {
-      return User.updatePassword(user, res);
+      User.updatePassword(user, res);
     })
     .catch(err => indentifyError(res, err));
 };
