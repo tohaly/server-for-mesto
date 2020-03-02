@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { validOptions } = require('../libs/validOptions');
+const { validOptions } = require('../libs/validOPtions');
 const { getResponse } = require('../libs/helpers');
 const updateOptions = require('../libs/optionsForModeUpdatel');
 
