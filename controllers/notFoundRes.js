@@ -1,6 +1,6 @@
 const { sendOnlyMessage } = require('../libs/helpers');
-const { resMessage } = require('../libs/resMessage');
+const resMessages = require('../libs/resMessages');
 
 module.exports.notFoundRes = (req, res) => {
-  sendOnlyMessage(res, resMessage.notFoundRes);
+  sendOnlyMessage(res, resMessages.notFoundRes);
 };

@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 const { getResponse, sendOnlyMessage, indentifyError, like } = require('../libs/helpers');
-const { resMessage } = require('../libs/resMessage');
+const resMessages = require('../libs/resMessages');
 
 module.exports.getCards = (req, res) => {
   Card.find({})
@@ -16,7 +16,7 @@ module.exports.createCard = (req, res) => {
 };
 module.exports.deleteCardById = (req, res) => {
   Card.findByIdAndRemove(req.params.cardId)
-    .then(() => res.send(sendOnlyMessage(res, resMessage.successDel)))
+    .then(sendOnlyMessage(res, resMessages.successDel))
     .catch(err => indentifyError(res, err));
 };
 module.exports.likeToggle = (req, res) => {

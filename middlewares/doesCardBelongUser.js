@@ -2,11 +2,11 @@ const Card = require('../models/card');
 const resMessages = require('../libs/resMessages');
 const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
 
-module.exports.doesCardExist = (req, res, next) => {
+module.exports.doesCardBelongUser = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
-      if (!card) {
-        sendOnlyMessage(res, resMessages.cardNotFound);
+      if (req.user._id !== String(card.owner._id)) {
+        sendOnlyMessage(res, resMessages.forbidden);
         return;
       }
       next();

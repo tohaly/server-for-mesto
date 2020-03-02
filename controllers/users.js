@@ -1,11 +1,7 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const { getResponse, indentifyError } = require('../libs/helpers');
-
-const updateOptions = {
-  new: true,
-  runValidators: true,
-  upsert: true
-};
+const updateOptions = require('../libs/optionsForModeUpdatel');
 
 module.exports.getUsers = (req, res) => {
   User.find({})
@@ -18,9 +14,11 @@ module.exports.getUserById = (req, res) => {
     .catch(err => indentifyError(res, err));
 };
 module.exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
-    .then(user => getResponse(res, user))
+  const { name, about, avatar, email, password } = req.body;
+  User.create({ name, about, avatar, email, password })
+    .then(user => {
+      User.updatePassword(user, res);
+    })
     .catch(err => indentifyError(res, err));
 };
 module.exports.updateProfile = (req, res) => {
@@ -33,5 +31,14 @@ module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.user._id, { avatar }, updateOptions)
     .then(user => getResponse(res, user))
+    .catch(err => indentifyError(res, err));
+};
+module.exports.login = (req, res) => {
+  const { email, password } = req.body;
+  return User.findUserByCredentials(email, password)
+    .then(user => {
+      const token = jwt.sign({ _id: user._id }, 'SECRET-KEY', { expiresIn: '7d' });
+      res.send({ token });
+    })
     .catch(err => indentifyError(res, err));
 };
