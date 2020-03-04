@@ -10,6 +10,7 @@ const auth = require('./middlewares/auth');
 const { notFoundRes } = require('./middlewares/not-found-res');
 const errorHandler = require('./errors/error-handler');
 const { validateCreateUser } = require('./middlewares/request-validation');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 
@@ -33,6 +34,8 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(requestLogger);
+
 app.post('/signin', login);
 app.post('/signup', validateCreateUser, createUser);
 
@@ -41,6 +44,8 @@ app.use('/', auth);
 app.use('/cards', cards);
 app.use('/users', users);
 app.use('/', notFoundRes);
+
+app.use(errorLogger);
 
 app.use(errors());
 

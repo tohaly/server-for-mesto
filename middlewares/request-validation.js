@@ -44,9 +44,17 @@ const validateCreateCardr = celebrate({
   })
 });
 
+const validateAuthorization = celebrate({
+  body: Joi.object().keys({
+    email: options.email,
+    password: options.password
+  })
+});
+
 module.exports = {
   validateCreateUser,
   validateUpdateProfile,
   validateUpdateAvatar,
-  validateCreateCardr
+  validateCreateCardr,
+  validateAuthorization
 };
