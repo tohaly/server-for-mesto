@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
 
 const cards = require('./routers/cards');
 const users = require('./routers/users');
@@ -8,6 +9,7 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { notFoundRes } = require('./middlewares/not-found-res');
 const errorHandler = require('./errors/error-handler');
+const { validateCreateUser } = require('./middlewares/request-validation');
 
 const { PORT = 3000 } = process.env;
 
@@ -32,13 +34,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signup', validateCreateUser, createUser);
 
 app.use('/', auth);
 
 app.use('/cards', cards);
 app.use('/users', users);
 app.use('/', notFoundRes);
+
+app.use(errors());
 
 app.use(errorHandler);
 
