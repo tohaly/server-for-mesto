@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,7 +10,7 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { notFoundRes } = require('./middlewares/not-found-res');
 const errorHandler = require('./errors/error-handler');
-const { validateCreateUser } = require('./middlewares/request-validation');
+const { validateCreateUser, validateLogin } = require('./middlewares/request-validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -36,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.post('/signin', login);
+app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
 
 app.use('/', auth);
