@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const { validOptions } = require('../libs/validOPtions');
 const { getResponse } = require('../libs/helpers');
 const updateOptions = require('../libs/optionsForModeUpdatel');
+const RequestWrong = require('../errors/request-wrong');
+const responseMessages = require('../libs/response-messages');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -32,7 +34,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: validOptions.requiredField,
-      unique: true,
+      unique: [true, 'Че каво'],
       validate: {
         validator(valid) {
           return validator.isEmail(valid);
@@ -54,18 +56,15 @@ const UserSchema = new mongoose.Schema(
 
 // eslint-disable-next-line func-names
 UserSchema.statics.findUserByCredentials = function(email, password) {
-  const customError = new Error('Matched error');
-  customError.name = 'custonMismatchErr';
-
   return this.findOne({ email })
     .select('+password')
     .then(user => {
       if (!user) {
-        return Promise.reject(customError);
+        return Promise.reject(new RequestWrong(responseMessages.authenticationFailed));
       }
       return bcrypt.compare(password, user.password).then(matched => {
         if (!matched) {
-          return Promise.reject(customError);
+          return Promise.reject(new RequestWrong(responseMessages.authenticationFailed));
         }
         return user;
       });

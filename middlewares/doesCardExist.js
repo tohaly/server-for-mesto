@@ -1,17 +1,14 @@
 const Card = require('../models/card');
-const resMessages = require('../libs/resMessages');
-const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
+const responseMessages = require('../libs/response-messages');
+const NotFoundError = require('../errors/not-found-error');
 
 module.exports.doesCardExist = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
       if (!card) {
-        sendOnlyMessage(res, resMessages.cardNotFound);
-        return;
+        throw new NotFoundError(responseMessages.cardNotFound);
       }
       next();
     })
-    .catch(err => {
-      indentifyError(res, err);
-    });
+    .catch(next);
 };

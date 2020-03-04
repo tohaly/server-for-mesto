@@ -1,4 +1,4 @@
-const resMessages = require('./resMessages');
+const resMessages = require('./response-messages');
 
 module.exports.getResponse = (res, data) => {
   return res.send({ data });

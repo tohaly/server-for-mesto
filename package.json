@@ -7,7 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "eslint": "eslint --ext=.js ./ --ignore-path .gitignore",
-    "eslintFix": "eslint --ext=.js ./ --ignore-path .gitignore --fix"
+    "eslintFix": "eslint --ext=.js ./ --ignore-path .gitignore --fix",
+    "inspect": "node --inspect app.js"
   },
   "author": "Anton Voitenko",
   "license": "ISC",

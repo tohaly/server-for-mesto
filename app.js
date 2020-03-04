@@ -6,7 +6,8 @@ const cards = require('./routers/cards');
 const users = require('./routers/users');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { notFoundRes } = require('./controllers/notFoundRes');
+const { notFoundRes } = require('./middlewares/not-found-res');
+const errorHandler = require('./errors/error-handler');
 
 const { PORT = 3000 } = process.env;
 
@@ -38,6 +39,8 @@ app.use('/', auth);
 app.use('/cards', cards);
 app.use('/users', users);
 app.use('/', notFoundRes);
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log('\x1b[32m%s\x1b[0m', `Сервер запущен 👌, порт: ${PORT}.`);
