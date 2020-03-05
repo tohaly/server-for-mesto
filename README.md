@@ -11,11 +11,19 @@ Version: v.0.2.0
 
 Сервер можной найти по следующим адресам:
 
-```
-https://www.spa-mesto.ml/
+#### Бэкэнд
 
-https://84.201.161.112
-```
+http://api.mesto-spa.ml/
+
+http://www.api.mesto-spa.ml/
+
+http://84.201.143.66/
+
+#### Фронтенд
+
+http://mesto-spa.ml/
+
+http://www.mesto-spa.ml/
 
 ## Используемые технологии:
 
