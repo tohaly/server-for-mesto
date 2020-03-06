@@ -26,7 +26,8 @@ mongoose
   .connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log(`\x1b[32m%s\x1b[0m`, `База данных успешно подключена`);
