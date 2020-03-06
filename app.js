@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const { createLogger, transports } = require('winston');
 
 const cards = require('./routers/cards');
 const users = require('./routers/users');
@@ -38,13 +39,29 @@ mongoose
 
 app.use(requestLogger);
 
-// Тест сервера
-app.get('/crash-test', (req, res) => {
+// ********** Тест сервера *************
+
+const TestReqLog = createLogger({
+  transports: [new transports.File({ filename: 'logs/request.log' })]
+});
+
+const testErrLog = createLogger({
+  transports: [new transports.File({ filename: 'logs/error.log' })]
+});
+
+app.get('/crash-test', (req, res, next) => {
   setTimeout(() => {
     throw new Error('Сервер упал!');
-  }, 0);
-  return res.status(520).send({ message: 'Я тебя запомнил! За меня отомстят!' });
+  }, 1000);
+  TestReqLog.log(
+    'info',
+    `Краш тест сервера по адресу ${req.url}, метод: ${req.method}`,
+    'my string'
+  );
+  testErrLog.log('info', `Тестируем перезапуск сервера... ... ... ...`, 'my string');
 });
+
+// ***********************
 
 app.post('/signin', validateLogin, login);
 app.post('/signup', validateCreateUser, createUser);
