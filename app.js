@@ -18,6 +18,9 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 mongoose
   .connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
@@ -33,16 +36,14 @@ mongoose
     console.log(`\x1b[31m%s\x1b[0m`, `------------`);
   });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(requestLogger);
 
 // Тест сервера
-app.get('/crash-test', () => {
+app.get('/crash-test', (req, res) => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    throw new Error('Сервер упал!');
   }, 0);
+  return res.status(520).send({ message: 'Я тебя запомнил! За меня отомстят!' });
 });
 
 app.post('/signin', validateLogin, login);
