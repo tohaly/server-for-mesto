@@ -50,6 +50,7 @@ const testErrLog = createLogger({
   transports: [new transports.File({ filename: 'logs/error.log' })]
 });
 
+// eslint-disable-next-line no-unused-vars
 app.get('/crash-test', (req, res, next) => {
   setTimeout(() => {
     throw new Error('Сервер упал!');

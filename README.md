@@ -13,17 +13,15 @@ Version: v.0.2.0
 
 #### Бэкэнд
 
-http://api.mesto-spa.ml/
+https://api.mesto-spa.ml/
 
-http://www.api.mesto-spa.ml/
-
-http://84.201.143.66/
+https://www.api.mesto-spa.ml/
 
 #### Фронтенд
 
-http://mesto-spa.ml/
+https://mesto-spa.ml/
 
-http://www.mesto-spa.ml/
+https://www.mesto-spa.ml/
 
 ## Используемые технологии:
 
