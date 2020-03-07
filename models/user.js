@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const uniqueValidator = require('mongoose-unique-validator');
 const { validOptions } = require('../libs/validOPtions');
 const { getResponse } = require('../libs/helpers');
 const updateOptions = require('../libs/optionsForModeUpdatel');
@@ -34,7 +35,7 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: validOptions.requiredField,
-      unique: [true, 'Че каво'],
+      unique: true,
       validate: {
         validator(valid) {
           return validator.isEmail(valid);
@@ -52,6 +53,11 @@ const UserSchema = new mongoose.Schema(
   {
     versionKey: false
   }
+);
+
+UserSchema.plugin(
+  uniqueValidator,
+  new RequestWrong(responseMessages.clientErrors.mailAlreadyExists)
 );
 
 // eslint-disable-next-line func-names

@@ -10,9 +10,6 @@ module.exports = (err, res) => {
     case 'CastError':
       customError = new RequestWrong(responseMessages.clientErrors.badId);
       break;
-    case err.message.startsWith('E11000') ? err.name : true:
-      customError = new RequestWrong(responseMessages.clientErrors.mailMismatch);
-      break;
     default:
       res
         .status(500)

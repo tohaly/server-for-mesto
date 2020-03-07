@@ -5,7 +5,7 @@ module.exports = {
   clientErrors: {
     validation: `Ошибка валидации`,
     badId: 'Не правильный формат id',
-    mailMismatch: 'Такой Email уже существует',
+    mailAlreadyExists: 'Такой Email уже существует',
     authentication: 'Неправильные почта или пароль',
     authorization: 'Неправильные почта или пароль',
     forbidden: 'Недостаточно прав для совершения данного действия',
