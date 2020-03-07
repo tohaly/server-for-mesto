@@ -15,7 +15,7 @@ const errorHandler = require('./errors/error-handler');
 const { validateCreateUser, validateLogin } = require('./middlewares/request-validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT, MONGO_HOST, NODE_ENV } = process.env;
+const { PORT, MONGO_HOST } = process.env;
 
 const app = express();
 
