@@ -5,16 +5,18 @@ module.exports = (err, res) => {
   let customError;
   switch (err.name) {
     case 'ValidationError':
-      customError = new RequestWrong(`${responseMessages.validationErr} / ${err}`);
+      customError = new RequestWrong(`${responseMessages.clientErrors.validation} / ${err}`);
       break;
     case 'CastError':
-      customError = new RequestWrong(responseMessages.badId);
+      customError = new RequestWrong(responseMessages.clientErrors.badId);
       break;
     case err.message.startsWith('E11000') ? err.name : true:
-      customError = new RequestWrong(responseMessages.emailMatches);
+      customError = new RequestWrong(responseMessages.clientErrors.mailMismatch);
       break;
     default:
-      res.status(500).send({ message: `${responseMessages.internalServerError} ${err}` });
+      res
+        .status(500)
+        .send({ message: `${responseMessages.serverErrors.internalServerError} ${err}` });
       break;
   }
   return res.status(customError.statusCode).send({ message: customError.message });

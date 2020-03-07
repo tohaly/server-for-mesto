@@ -6,7 +6,7 @@ module.exports.doesCardExist = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
       if (!card) {
-        throw new NotFoundError(responseMessages.cardNotFound);
+        throw new NotFoundError(responseMessages.clientErrors.cardNotFound);
       }
       next();
     })

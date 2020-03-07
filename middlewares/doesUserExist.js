@@ -7,7 +7,7 @@ module.exports.doesUserExist = (req, res, next) => {
   User.findById(req.params.userId)
     .then(user => {
       if (!user) {
-        throw new NotFoundError(responseMessages.userNotFound);
+        throw new NotFoundError(responseMessages.clientErrors.userNotFound);
       }
 
       next();

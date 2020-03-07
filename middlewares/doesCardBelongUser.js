@@ -6,7 +6,7 @@ module.exports.doesCardBelongUser = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
       if (req.user._id !== String(card.owner._id)) {
-        throw new RequestWrong(responseMessages.forbidden);
+        throw new RequestWrong(responseMessages.clientErrors.forbidden);
       }
       next();
     })
