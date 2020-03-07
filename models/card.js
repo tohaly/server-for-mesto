@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const { validOptions } = require('../libs/validOPtions');
+const validOptions = require('../libs/valid-options');
 
 const cardSchema = new mongoose.Schema(
   {
