@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-require('dotenv').config();
+require('dotenv-flow').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -15,7 +15,7 @@ const errorHandler = require('./errors/error-handler');
 const { validateCreateUser, validateLogin } = require('./middlewares/request-validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT, MONGO_HOST, NODE_ENV } = process.env;
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 mongoose
-  .connect('mongodb://localhost:27017/mestodb', {
+  .connect(MONGO_HOST, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
