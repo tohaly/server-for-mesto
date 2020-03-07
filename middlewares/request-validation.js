@@ -5,13 +5,16 @@ const options = {
     .required()
     .min(2)
     .max(30),
-  link: Joi.string().required(),
+  link: Joi.string()
+    .required()
+    .uri({ allowRelative: true }),
   password: Joi.string()
     .required()
     .min(8),
   email: Joi.string()
     .required()
     .min(3)
+    .email()
 };
 
 const validateCreateUser = celebrate({
