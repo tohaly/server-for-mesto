@@ -1,17 +1,14 @@
 const Card = require('../models/card');
-const resMessages = require('../libs/resMessages');
-const { sendOnlyMessage, indentifyError } = require('../libs/helpers');
+const responseMessages = require('../libs/response-messages');
+const RequestWrong = require('../errors/request-wrong');
 
 module.exports.doesCardBelongUser = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then(card => {
       if (req.user._id !== String(card.owner._id)) {
-        sendOnlyMessage(res, resMessages.forbidden);
-        return;
+        throw new RequestWrong(responseMessages.clientErrors.forbidden);
       }
       next();
     })
-    .catch(err => {
-      indentifyError(res, err);
-    });
+    .catch(next);
 };

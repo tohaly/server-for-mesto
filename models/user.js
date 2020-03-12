@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const { validOptions } = require('../libs/validOPtions');
+const uniqueValidator = require('mongoose-unique-validator');
+const validOptions = require('../libs/valid-options');
 const { getResponse } = require('../libs/helpers');
 const updateOptions = require('../libs/optionsForModeUpdatel');
+const RequestWrong = require('../errors/request-wrong');
+const responseMessages = require('../libs/response-messages');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -52,20 +55,22 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
+UserSchema.plugin(
+  uniqueValidator,
+  new RequestWrong(responseMessages.clientErrors.mailAlreadyExists)
+);
+
 // eslint-disable-next-line func-names
 UserSchema.statics.findUserByCredentials = function(email, password) {
-  const customError = new Error('Matched error');
-  customError.name = 'custonMismatchErr';
-
   return this.findOne({ email })
     .select('+password')
     .then(user => {
       if (!user) {
-        return Promise.reject(customError);
+        return Promise.reject(new RequestWrong(responseMessages.clientErrors.authentication));
       }
       return bcrypt.compare(password, user.password).then(matched => {
         if (!matched) {
-          return Promise.reject(customError);
+          return Promise.reject(new RequestWrong(responseMessages.clientErrors.authentication));
         }
         return user;
       });

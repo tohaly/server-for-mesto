@@ -1,4 +1,4 @@
-module.exports.validOptions = {
+module.exports = {
   requiredField: [true, 'Обязательное поле для заполнения'],
   minChar: [2, 'Минимальное количество символов 2'],
   maxChar: [30, 'Максимальное количество символов 30'],
