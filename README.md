@@ -11,17 +11,6 @@ Version: v.0.2.0
 
 Сервер можной найти по следующим адресам:
 
-#### Бэкэнд
-
-https://api.mesto-spa.ml/
-
-https://www.api.mesto-spa.ml/
-
-#### Фронтенд
-
-https://mesto-spa.ml/
-
-https://www.mesto-spa.ml/
 
 ## Используемые технологии:
 
